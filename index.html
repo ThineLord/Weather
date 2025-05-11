@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>天气查询 (Open-Meteo)</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <div class="app-container">
+        <header>
+            <div id="current-time" class="current-time"></div>
+            <div class="theme-switcher">
+                <i id="theme-toggle-icon" class="fas fa-sun"></i>
+            </div>
+        </header>
+
+        <main>
+            <div class="search-container">
+                <input type="text" id="city-input" placeholder="输入城市名称...">
+                <button id="search-button"><i class="fas fa-search"></i> 搜索</button>
+            </div>
+
+            <div id="weather-cards-container" class="weather-cards-container">
+                </div>
+        </main>
+
+        <footer>
+            <p>Powered by <a href="https://open-meteo.com/" target="_blank" rel="noopener noreferrer">Open-Meteo</a></p>
+        </footer>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

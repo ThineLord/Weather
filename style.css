@@ -1,0 +1,330 @@
+:root {
+    --primary-bg-light: #f4f7f6;
+    --secondary-bg-light: #ffffff;
+    --text-color-light: #333333;
+    --card-shadow-light: rgba(0, 0, 0, 0.1);
+
+    --primary-bg-dark: #1a1a2e;
+    --secondary-bg-dark: #16213e;
+    --text-color-dark: #e0e0e0;
+    --card-shadow-dark: rgba(255, 255, 255, 0.05);
+
+    --font-main: 'Arial', sans-serif;
+    --border-radius: 8px;
+}
+
+body {
+    font-family: var(--font-main);
+    margin: 0;
+    transition: background-color 0.3s, color 0.3s;
+    background-color: var(--primary-bg-light);
+    color: var(--text-color-light);
+    display: flex;
+    justify-content: center;
+    align-items: flex-start; /* Align items to the top */
+    min-height: 100vh;
+    padding-top: 20px; /* Add some padding at the top */
+    box-sizing: border-box;
+}
+
+body.dark-mode {
+    background-color: var(--primary-bg-dark);
+    color: var(--text-color-dark);
+}
+
+.app-container {
+    width: 100%;
+    max-width: 900px; /* Max width for larger screens */
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+    padding: 10px 0;
+    border-bottom: 1px solid var(--text-color-light);
+}
+
+body.dark-mode header {
+    border-bottom: 1px solid var(--text-color-dark);
+}
+
+.current-time {
+    font-size: 1.1em;
+}
+
+.theme-switcher {
+    cursor: pointer;
+    font-size: 1.5em;
+}
+
+.search-container {
+    display: flex;
+    margin-bottom: 25px;
+    gap: 10px;
+}
+
+#city-input {
+    flex-grow: 1;
+    padding: 12px 15px;
+    border: 1px solid #ccc;
+    border-radius: var(--border-radius);
+    font-size: 1em;
+    background-color: var(--secondary-bg-light);
+    color: var(--text-color-light);
+}
+
+body.dark-mode #city-input {
+    background-color: var(--secondary-bg-dark);
+    color: var(--text-color-dark);
+    border-color: #444;
+}
+
+#search-button {
+    padding: 12px 20px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    font-size: 1em;
+    transition: background-color 0.2s;
+}
+
+#search-button:hover {
+    background-color: #0056b3;
+}
+
+body.dark-mode #search-button {
+    background-color: #0a4f90; /* A slightly different blue for dark mode */
+}
+
+body.dark-mode #search-button:hover {
+    background-color: #083c6e;
+}
+
+.weather-cards-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* Responsive grid */
+    gap: 20px;
+}
+
+.weather-card {
+    background-color: var(--secondary-bg-light);
+    padding: 20px;
+    border-radius: var(--border-radius);
+    box-shadow: 0 4px 8px var(--card-shadow-light);
+    position: relative;
+    overflow: hidden; /* For background image */
+    color: var(--text-color-light); /* Default text color for card */
+    transition: transform 0.2s ease-in-out, background-color 0.3s;
+}
+
+.weather-card:hover {
+    transform: translateY(-5px);
+}
+
+body.dark-mode .weather-card {
+    background-color: var(--secondary-bg-dark);
+    box-shadow: 0 4px 8px var(--card-shadow-dark);
+    color: var(--text-color-dark);
+}
+
+.weather-card::before { /* For background overlay */
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-size: cover;
+    background-position: center;
+    opacity: 0.15; /* Adjust for desired image visibility */
+    z-index: 0;
+    transition: opacity 0.5s;
+}
+
+.weather-card-content {
+    position: relative; /* To ensure content is above pseudo-element */
+    z-index: 1;
+}
+
+
+.weather-card h2 {
+    margin-top: 0;
+    font-size: 1.6em;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.weather-card .location {
+    max-width: calc(100% - 30px); /* Ensure it doesn't overlap with remove button */
+    word-break: break-word;
+}
+
+
+.weather-card .remove-card {
+    background: none;
+    border: none;
+    color: inherit; /* Inherit color from parent, changes with theme */
+    font-size: 0.9em;
+    cursor: pointer;
+    opacity: 0.7;
+    transition: opacity 0.2s;
+}
+
+.weather-card .remove-card:hover {
+    opacity: 1;
+}
+
+.weather-info {
+    display: flex;
+    align-items: center;
+    margin: 15px 0;
+}
+
+.weather-info img.weather-icon {
+    width: 60px;
+    height: 60px;
+    margin-right: 15px;
+}
+
+.weather-info .temperature {
+    font-size: 2.8em;
+    font-weight: bold;
+}
+
+.weather-details p {
+    margin: 8px 0;
+    font-size: 0.95em;
+}
+
+.weather-details strong {
+    margin-right: 5px;
+}
+
+/* Specific weather condition backgrounds (add more as needed) */
+.weather-card.clear-sky::before {
+    background-image: url('https://images.unsplash.com/photo-1590077428593-a55d22756850?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8Y2xlYXIlMjBza3l8ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&w=500&q=60');
+}
+.weather-card.clear-sky { color: #222; /* Darker text for light background */}
+body.dark-mode .weather-card.clear-sky { color: var(--text-color-dark); /* Keep dark mode text if needed */}
+
+
+.weather-card.few-clouds::before, .weather-card.scattered-clouds::before {
+    background-image: url('https://images.unsplash.com/photo-1534088568595-a066f410bcda?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8Y2xvdWR5JTIwc2t5fGVufDB8fDB8fHww&auto=format&fit=crop&w=500&q=60');
+}
+
+.weather-card.broken-clouds::before, .weather-card.overcast-clouds::before {
+    background-image: url('https://images.unsplash.com/photo-1499956827185-0d63ee78a910?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTF8fG92ZXJjYXN0JTIwc2t5fGVufDB8fDB8fHww&auto=format&fit=crop&w=500&q=60');
+}
+
+.weather-card.shower-rain::before, .weather-card.rain::before, .weather-card.light-rain::before {
+    background-image: url('https://images.unsplash.com/photo-1519692933481-e1428a6ce931?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTB8fHJhaW58ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&w=500&q=60');
+}
+.weather-card.rain { color: #fff; } /* White text for dark rain background */
+.weather-card.rain::before { opacity: 0.3; }
+body.dark-mode .weather-card.rain { color: var(--text-color-dark); }
+
+
+.weather-card.thunderstorm::before {
+    background-image: url('https://images.unsplash.com/photo-1605727216801-e27ce1d0cc28?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8dGh1bmRlcnN0b3JtfGVufDB8fDB8fHww&auto=format&fit=crop&w=500&q=60');
+    color: #fff;
+}
+.weather-card.thunderstorm { color: #fff; }
+.weather-card.thunderstorm::before { opacity: 0.3; }
+body.dark-mode .weather-card.thunderstorm { color: var(--text-color-dark); }
+
+
+.weather-card.snow::before {
+    background-image: url('https://images.unsplash.com/photo-1547754980-3df97fed72a8?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8c25vd3xlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&w=500&q=60');
+}
+.weather-card.snow { color: #222; }
+body.dark-mode .weather-card.snow { color: var(--text-color-dark); }
+
+
+.weather-card.mist::before, .weather-card.fog::before {
+    background-image: url('https://images.unsplash.com/photo-1481931707458-285acc63014b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8Zm9nfGVufDB8fDB8fHww&auto=format&fit=crop&w=500&q=60');
+}
+.weather-card.mist { color: #222; }
+body.dark-mode .weather-card.mist { color: var(--text-color-dark); }
+
+
+footer {
+    text-align: center;
+    margin-top: 30px;
+    padding-top: 15px;
+    border-top: 1px solid var(--text-color-light);
+    font-size: 0.9em;
+    opacity: 0.7;
+}
+
+body.dark-mode footer {
+    border-top: 1px solid var(--text-color-dark);
+}
+
+footer a {
+    color: inherit;
+    text-decoration: none;
+}
+
+footer a:hover {
+    text-decoration: underline;
+}
+
+/* Loading spinner (optional) */
+.loader {
+    border: 4px solid #f3f3f3;
+    border-top: 4px solid #3498db;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    animation: spin 1s linear infinite;
+    margin: 20px auto;
+}
+body.dark-mode .loader {
+    border-top: 4px solid #5dade2;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* Responsive adjustments */
+@media (max-width: 600px) {
+    .app-container {
+        padding: 10px;
+    }
+    header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    .current-time {
+        margin-bottom: 10px;
+    }
+    .theme-switcher {
+        align-self: flex-end; /* Move theme switcher to the right */
+    }
+    .search-container {
+        flex-direction: column;
+    }
+    #search-button {
+        width: 100%;
+        margin-top: 10px;
+    }
+    .weather-card h2 {
+        font-size: 1.4em;
+    }
+    .weather-info .temperature {
+        font-size: 2.2em;
+    }
+    .weather-info img.weather-icon {
+        width: 50px;
+        height: 50px;
+    }
+}
